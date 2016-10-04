@@ -24,6 +24,12 @@ use overload
 #--------------------------------------------------------------------------#
 
 sub pushd {
+    # Called in void context?
+    unless (defined wantarray) {
+        warnings::warnif(void => 'Useless use of File::pushd::pushd in void context');
+        return
+    }
+
     my ( $target_dir, $options ) = @_;
     $options->{untaint_pattern} ||= qr{^([-+@\w./]+)$};
 
@@ -69,6 +75,12 @@ sub pushd {
 #--------------------------------------------------------------------------#
 
 sub tempd {
+    # Called in void context?
+    unless (defined wantarray) {
+        warnings::warnif(void => 'Useless use of File::pushd::tempd in void context');
+        return
+    }
+
     my ($options) = @_;
     my $dir;
     eval { $dir = pushd( File::Temp::tempdir( CLEANUP => 0 ), $options ) };
@@ -227,6 +239,18 @@ marked for cleanup if the argument is false.  Only C<tempd> objects may be
 marked for cleanup.  (Target directories to C<pushd> are always preserved.)
 C<preserve> returns true if the directory will be preserved, and false
 otherwise.
+
+=head1 DIAGNOSTICS
+
+C<pushd> and C<tempd> warn with message
+C<"Useless use of File::pushd::I<%s> in void context"> if called in
+void context and the warnings category C<void> is enabled.
+
+  {
+    use warnings 'void';
+
+    pushd();
+  }
 
 =head1 SEE ALSO
 
