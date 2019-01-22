@@ -47,7 +47,7 @@ sub pushd {
     }
 
     my $tainted_dest;
-    eval { $tainted_dest = $target_dir ? abs_path($target_dir) : $orig };
+    eval { $tainted_dest = defined $target_dir ? abs_path($target_dir) : $orig };
     croak "Can't locate absolute path for $target_dir: $@" if $@;
 
     my $dest;
