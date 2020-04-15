@@ -1,3 +1,7 @@
+[![Actions Status](https://github.com/atoomic/File-pushd/workflows/linux/badge.svg)](https://github.com/atoomic/File-pushd/actions)
+[![Actions Status](https://github.com/atoomic/File-pushd/workflows/macos/badge.svg)](https://github.com/atoomic/File-pushd/actions)
+[![Actions Status](https://github.com/atoomic/File-pushd/workflows/windows/badge.svg)](https://github.com/atoomic/File-pushd/actions)
+
 ## HOW TO CONTRIBUTE
 
 Thank you for considering contributing to this distribution.  This file
