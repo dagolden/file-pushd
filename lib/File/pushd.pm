@@ -26,9 +26,9 @@ use overload
 
 sub pushd {
     # Called in void context?
-    unless (defined wantarray) {
-        warnings::warnif(void => 'Useless use of File::pushd::pushd in void context');
-        return
+    unless ( defined wantarray ) {
+        warnings::warnif( void => 'Useless use of File::pushd::pushd in void context' );
+        return;
     }
 
     my ( $target_dir, $options ) = @_;
@@ -77,9 +77,9 @@ sub pushd {
 
 sub tempd {
     # Called in void context?
-    unless (defined wantarray) {
-        warnings::warnif(void => 'Useless use of File::pushd::tempd in void context');
-        return
+    unless ( defined wantarray ) {
+        warnings::warnif( void => 'Useless use of File::pushd::tempd in void context' );
+        return;
     }
 
     my ($options) = @_;
@@ -116,7 +116,7 @@ sub DESTROY {
     my ($self) = @_;
     my $orig = $self->{_original};
     chdir $orig if $orig; # should always be so, but just in case...
-    if ( $self->{_tempd}
+    if (   $self->{_tempd}
         && $self->{_owner} == $$
         && !$self->{_preserve} )
     {
