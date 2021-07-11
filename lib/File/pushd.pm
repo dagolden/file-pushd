@@ -26,9 +26,9 @@ use overload
 
 sub pushd {
     # Called in void context?
-    unless (defined wantarray) {
-        warnings::warnif(void => 'Useless use of File::pushd::pushd in void context');
-        return
+    unless ( defined wantarray ) {
+        warnings::warnif( void => 'Useless use of File::pushd::pushd in void context' );
+        return;
     }
 
     my ( $target_dir, $options ) = @_;
@@ -47,7 +47,7 @@ sub pushd {
     }
 
     my $tainted_dest;
-    eval { $tainted_dest = $target_dir ? abs_path($target_dir) : $orig };
+    eval { $tainted_dest = defined $target_dir ? abs_path($target_dir) : $orig };
     croak "Can't locate absolute path for $target_dir: $@" if $@;
 
     my $dest;
@@ -77,9 +77,9 @@ sub pushd {
 
 sub tempd {
     # Called in void context?
-    unless (defined wantarray) {
-        warnings::warnif(void => 'Useless use of File::pushd::tempd in void context');
-        return
+    unless ( defined wantarray ) {
+        warnings::warnif( void => 'Useless use of File::pushd::tempd in void context' );
+        return;
     }
 
     my ($options) = @_;
@@ -116,7 +116,7 @@ sub DESTROY {
     my ($self) = @_;
     my $orig = $self->{_original};
     chdir $orig if $orig; # should always be so, but just in case...
-    if ( $self->{_tempd}
+    if (   $self->{_tempd}
         && $self->{_owner} == $$
         && !$self->{_preserve} )
     {

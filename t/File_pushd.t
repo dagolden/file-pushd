@@ -230,11 +230,11 @@ ok( -e $expected_dir, "original directory not removed" );
 # Test removing temp directory by owner process
 #--------------------------------------------------------------------------#
 if ( $Config{d_fork} ) {
-    my $new_dir = tempd();
+    my $new_dir  = tempd();
     my $temp_dir = "$new_dir";
-    my $pid = fork;
+    my $pid      = fork;
     die "Can't fork: $!" unless defined $pid;
-    if ($pid == 0) {
+    if ( $pid == 0 ) {
         exit;
     }
     wait;
